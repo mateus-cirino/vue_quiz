@@ -1,28 +1,50 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header :acertos="acertos" />
+    <QuestionBox :pergunta="pergunta" v-for="(pergunta, index) in perguntas" :key="index" @atualizarNumAcerto="atualizarNumAcerto" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Header from "./components/Header.vue";
+import QuestionBox from "./components/QuestionBox.vue";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    QuestionBox
+  },
+  data() {
+    return {
+      perguntas: [
+      {
+          titulo: "Qual o maior país da América Latina",
+          autor: "mateus-cirino",
+          alternativas: ["Brasil", "Argentina", "Uruguai"],
+          alternativaCorreta: "Brasil"
+      },
+      {
+          titulo: "Quem é o namorado da Larissa",
+          autor: "mateus-cirino",
+          alternativas: ["Mateus", "Geraldo", "Felipe"],
+          alternativaCorreta: "Mateus"
+      }
+      ],
+      acertos: 0
+    }
+  },
+  methods: {
+    atualizarNumAcerto(acerto) {
+      if(acerto) {
+        this.acertos++;
+      }
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
