@@ -1,50 +1,56 @@
 <template>
   <div id="app">
     <Header :acertos="acertos" />
-    <QuestionBox :pergunta="pergunta" v-for="(pergunta, index) in perguntas" :key="index" @atualizarNumAcerto="atualizarNumAcerto" />
+    <QuestionBox :pergunta="perguntaAtual" @atualizarNumAcerto="atualizarNumAcerto" v-if="haPerguntaAtual" />
   </div>
 </template>
 
 <script>
-
 import Header from "./components/Header.vue";
 import QuestionBox from "./components/QuestionBox.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
     QuestionBox
   },
   data() {
     return {
-      perguntas: [
-      {
-          titulo: "Qual o maior país da América Latina",
-          autor: "mateus-cirino",
-          alternativas: ["Brasil", "Argentina", "Uruguai"],
-          alternativaCorreta: "Brasil"
-      },
-      {
-          titulo: "Quem é o namorado da Larissa",
-          autor: "mateus-cirino",
-          alternativas: ["Mateus", "Geraldo", "Felipe"],
-          alternativaCorreta: "Mateus"
-      }
-      ],
+      perguntas: [],
+      index: 0,
       acertos: 0
-    }
+    };
+  },
+  mounted: function() {
+    fetch("https://opentdb.com/api.php?amount=10&type=multiple", {
+      method: "get"
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(responseJson => {
+        this.perguntas = responseJson.results;
+      });
   },
   methods: {
     atualizarNumAcerto(acerto) {
-      if(acerto) {
+      if (acerto) {
         this.acertos++;
       }
+      this.index++;
+    }
+  },
+  computed: {
+    perguntaAtual() {
+      return this.perguntas[this.index] || {};
+    },
+    haPerguntaAtual() {
+      return !!this.perguntas[this.index];
     }
   }
-}
+};
 </script>
 
 <style>
-
 </style>
