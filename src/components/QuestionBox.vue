@@ -5,14 +5,14 @@
         <div class="media">
           <div class="media-left"></div>
           <div class="media-content">
-            <p class="title is-4">{{ pergunta.titulo }}</p>
-            <p class="subtitle is-6">@{{ pergunta.autor }}</p>
+            <p class="title is-4">{{ pergunta.question }}</p>
+            <p class="subtitle is-6">@{{ pergunta.category }}</p>
           </div>
         </div>
-        <div class="content" v-for="(alternativa, index) in pergunta.alternativas" :key="index">
+        <div class="content" v-for="(alternativa, index) in alternativas" :key="index">
           <b-radio v-model="radio" name="name" :native-value="alternativa">{{ alternativa }}</b-radio>
         </div>
-        <b-button @click="verificaResposta" v-bind:disabled="voto">Salvar</b-button>
+        <b-button @click="verificaResposta" >Salvar</b-button>
       </div>
     </div>
   </div>
@@ -24,20 +24,27 @@ export default {
   data() {
     return {
       radio: "",
-      voto: false,
-      acertou: false
     };
+  },
+  computed: {
+    alternativas() {
+      const { pergunta } = this;
+      
+      if(pergunta.incorrect_answers && pergunta.correct_answer){
+        return [...pergunta.incorrect_answers, pergunta.correct_answer].sort();
+      }
+      return [];
+    }
   },
   methods: {
     verificaResposta() {
-      if (this.radio === this.pergunta.alternativaCorreta) {
-        this.acertou = true;
+      if (this.radio === this.pergunta.correct_answer) {
+        this.$emit("atualizarNumAcerto", true);
         this.$buefy.notification.open("Você acertou!!");
       } else {
+        this.$emit("atualizarNumAcerto", false);
         this.$buefy.notification.open("Você errou!!");
       }
-      this.voto = true;
-      this.$emit("atualizarNumAcerto", this.acertou);
     }
   },
 
