@@ -16,7 +16,7 @@
 <script>
 export default {
   props: [
-    'acertos'
-  ]
-}
+    'acertos',
+  ],
+};
 </script>
