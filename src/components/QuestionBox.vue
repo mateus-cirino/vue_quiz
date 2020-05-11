@@ -12,10 +12,11 @@
         <div class="content" v-for="(alternativa, index) in alternativas" :key="index">
           <b-radio
           v-model="radio"
+          @input="enviarResposta"
           name="name"
           :native-value="alternativa">{{ alternativa }}</b-radio>
         </div>
-        <b-button @click="verificaResposta" >Salvar</b-button>
+
       </div>
     </div>
   </div>
@@ -40,17 +41,18 @@ export default {
     },
   },
   methods: {
-    verificaResposta() {
-      if (this.radio === this.pergunta.correct_answer) {
-        this.$emit('atualizarNumAcerto', true);
-        this.$buefy.notification.open('Você acertou!!');
-      } else {
-        this.$emit('atualizarNumAcerto', false);
-        this.$buefy.notification.open('Você errou!!');
-      }
+    enviarResposta() {
+      this.$emit('enviarResposta', this.radio);
     },
   },
-
+  mounted() {
+    this.radio = this.pergunta.resposta;
+  },
+  watch: {
+    'pergunta.resposta': function (val) {
+      this.radio = val;
+    },
+  },
 };
 </script>
 
