@@ -7,7 +7,11 @@
         </b-navbar-item>
       </template>
       <template slot="start">
-        <b-navbar-item href="#">Acertos: {{acertos}}</b-navbar-item>
+        <b-navbar-item href="#">Perguntas respondidas:
+          {{quantidadeDePerguntasRespondidas}}
+          /
+          {{quantidadeDePerguntas}}
+          </b-navbar-item>
       </template>
     </b-navbar>
   </div>
@@ -16,7 +20,8 @@
 <script>
 export default {
   props: [
-    'acertos',
+    'quantidadeDePerguntas',
+    'quantidadeDePerguntasRespondidas',
   ],
 };
 </script>
