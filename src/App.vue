@@ -40,8 +40,7 @@ export default {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        this.perguntas = [...responseJson.results];
-        this.perguntas.map((p) => [...p, { resposta: '' }]);
+        this.perguntas = responseJson.results.map((p) => ({ ...p, resposta: '' }));
         this.quantidadeDePerguntas = this.perguntas.length;
       });
   },
