@@ -1,5 +1,5 @@
 ## Sobre o quiz
-Aplicação simples que permite a partir de um carregamento de perguntas da [API](https://opentdb.com/api_config.php)  permite salvar sua resposta, ir para a pergunta anterior ou para a próxima, além de exibir um painel com o status de cada pergunta (respondida ou não) e no final, exibe quantos pontos você fez. *(No começo eu iria exibir quais você acertou e quais errou, mostrando no caso do erro, a alternativa correta, porém acabei me concentrando em outras coisas da faculdade e do meu estágio)*.
+Aplicação simples que a partir do carregamento de perguntas da [API](https://opentdb.com/api_config.php)  é possível salvar sua resposta, ir para a pergunta anterior ou para a próxima, além de exibir um painel com o status de cada pergunta (respondida ou não) e no final, exibe quantos pontos você fez. *(No começo eu iria exibir quais você acertou e quais errou, mostrando no caso do erro, a alternativa correta, porém acabei me concentrando em outras coisas da faculdade e do meu estágio)*.
 
 ## O que aprendi?
 
